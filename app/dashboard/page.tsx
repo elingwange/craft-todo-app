@@ -1,5 +1,22 @@
 import Link from 'next/link';
 import { HomeIcon, PlusIcon, LogOutIcon, UserIcon } from 'lucide-react';
+import Badge from '../components/ui/Badge';
+import { Status, Priority } from '@/lib/types';
+import { formatRelativeTime } from '@/lib/utils';
+import { issues } from '@/mocks/issues';
+
+export const ISSUE_STATUS = {
+  backlog: { label: 'Backlog', value: 'backlog' },
+  todo: { label: 'Todo', value: 'todo' },
+  in_progress: { label: 'In Progress', value: 'in_progress' },
+  done: { label: 'Done', value: 'done' },
+};
+
+export const ISSUE_PRIORITY = {
+  low: { label: 'Low', value: 'low' },
+  medium: { label: 'Medium', value: 'medium' },
+  high: { label: 'High', value: 'high' },
+};
 
 export default function DashboardPage() {
   return (
@@ -51,7 +68,7 @@ export default function DashboardPage() {
           </Link>
         </div>
       </div>
-      <div className='flex flex-col w-full h-screen bg-blue-50 px-4 py-8'>
+      <div className='flex flex-col w-full h-screen bg-white px-4 py-8'>
         <div className='flex justify-between mb-10'>
           <h3 className=' text-2xl font-semibold pt-2 px-3'>Issues</h3>
           <button className=' text-black text-sm px-5 rounded-md bg-theme-coffee dark:bg-amber-900'>
@@ -73,19 +90,30 @@ export default function DashboardPage() {
 
           {/* Issue rows */}
           <div className='divide-y divide-gray-200 dark:divide-dark-border-default'>
-            <Link
-              href='/'
-              className='block hover:bg-gray-50 dark:hover:bg-dark-elevated transition-colors'
-            >
-              <div className='grid grid-cols-12 gap-4 px-6 py-4 items-center'>
-                <div className='col-span-5 font-medium truncate'>title</div>
-                <div className='col-span-2'>Todo</div>
-                <div className='col-span-2'>High</div>
-                <div className='col-span-3 text-sm text-gray-500 dark:text-gray-400'>
-                  42 minutes ago
+            {issues.map((issue) => (
+              <Link
+                key={issue.id}
+                href='/'
+                className='block hover:bg-gray-50 dark:hover:bg-dark-elevated transition-colors'
+              >
+                <div className='grid grid-cols-12 gap-4 px-6 py-4 items-center'>
+                  <div className='col-span-5 font-medium truncate'>{issue.title}</div>
+                  <div className='col-span-2'>
+                    <Badge status={issue.status as Status}>
+                      {ISSUE_STATUS[issue.status as Status].label}
+                    </Badge>
+                  </div>
+                  <div className='col-span-2'>
+                    <Badge priority={issue.priority as Priority}>
+                      {ISSUE_PRIORITY[issue.priority as Priority].label}
+                    </Badge>
+                  </div>
+                  <div className='col-span-3 text-sm text-gray-500 dark:text-gray-400'>
+                    {formatRelativeTime(new Date(issue.createdAt))}
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
