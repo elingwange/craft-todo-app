@@ -34,7 +34,6 @@ export default function DashboardPage() {
           <span className='hidden md:inline'>New Issue</span>
         </Link>
 
-        {/* Signout 按钮放在底部 */}
         <div className='mt-auto'>
           <div className='h-px bg-gray-200 dark:bg-gray-700 my-4 w-full' />
 
@@ -87,7 +86,7 @@ export default function DashboardPage() {
             {issues.map((issue) => (
               <Link
                 key={issue.id}
-                href='/'
+                href={`/issues/${issue.id}`}
                 className='block hover:bg-gray-50 dark:hover:bg-dark-elevated transition-colors'
               >
                 <div className='grid grid-cols-12 gap-4 px-6 py-4 items-center'>

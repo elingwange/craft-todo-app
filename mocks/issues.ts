@@ -6,7 +6,7 @@ export const issues = [
     status: 'done',
     priority: 'high',
     createdAt: '2025-06-06T02:13:17.206Z',
-    updatedAt: '2025-06-06T02:13:17.206Z',
+    updatedAt: '2025-06-08T02:13:17.206Z',
     userId: 'UPnUTHcggrh6_aOEFu9YW',
     user: {
       id: 'UPnUTHcggrh6_aOEFu9YW',
