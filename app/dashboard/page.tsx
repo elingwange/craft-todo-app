@@ -3,10 +3,13 @@ import { HomeIcon, PlusIcon, LogOutIcon, UserIcon } from 'lucide-react';
 import Badge from '../components/ui/Badge';
 import { Status, Priority } from '@/lib/types';
 import { formatRelativeTime } from '@/lib/utils';
-import { issues } from '@/mocks/issues';
 import { ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/schema';
+import { getIssues } from '@/lib/dal';
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  //  'use cache';
+  const issues = await getIssues();
+
   return (
     <div className='flex w-full h-screen'>
       <div className='flex flex-col w-20 md:w-96 h-screen bg-slate-50 px-6 py-4 transition-all duration-300 dark:bg-[#1A1A1A]'>
@@ -81,33 +84,38 @@ export default function DashboardPage() {
             <div className='col-span-3'>Created</div>
           </div>
 
-          {/* Issue rows */}
-          <div className='divide-y divide-gray-200 dark:divide-dark-border-default'>
-            {issues.map((issue) => (
-              <Link
-                key={issue.id}
-                href={`/issues/${issue.id}`}
-                className='block hover:bg-gray-50 dark:hover:bg-dark-elevated transition-colors'
-              >
-                <div className='grid grid-cols-12 gap-4 px-6 py-4 items-center'>
-                  <div className='col-span-5 font-medium truncate'>{issue.title}</div>
-                  <div className='col-span-2'>
-                    <Badge status={issue.status as Status}>
-                      {ISSUE_STATUS[issue.status as Status].label}
-                    </Badge>
+          {issues?.length > 0 ? (
+            <div className='divide-y divide-gray-200 dark:divide-dark-border-default'>
+              {issues.map((issue) => (
+                <Link
+                  key={issue.id}
+                  href={`/issues/${issue.id}`}
+                  className='block hover:bg-gray-50 dark:hover:bg-dark-elevated transition-colors'
+                >
+                  <div className='grid grid-cols-12 gap-4 px-6 py-4 items-center'>
+                    <div className='col-span-5 font-medium truncate'>{issue.title}</div>
+                    <div className='col-span-2'>
+                      <Badge status={issue.status as Status}>
+                        {ISSUE_STATUS[issue.status as Status].label}
+                      </Badge>
+                    </div>
+                    <div className='col-span-2'>
+                      <Badge priority={issue.priority as Priority}>
+                        {ISSUE_PRIORITY[issue.priority as Priority].label}
+                      </Badge>
+                    </div>
+                    <div className='col-span-3 text-sm text-gray-500 dark:text-gray-400'>
+                      {formatRelativeTime(new Date(issue.createdAt))}
+                    </div>
                   </div>
-                  <div className='col-span-2'>
-                    <Badge priority={issue.priority as Priority}>
-                      {ISSUE_PRIORITY[issue.priority as Priority].label}
-                    </Badge>
-                  </div>
-                  <div className='col-span-3 text-sm text-gray-500 dark:text-gray-400'>
-                    {formatRelativeTime(new Date(issue.createdAt))}
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className='px-6 py-8 text-center text-gray-500 dark:text-gray-400'>
+              No issues found.
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -1,22 +1,36 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useActionState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Form, FormGroup, FormInput, FormLabel } from '@/app/components/ui/Form';
+import { ActionResponse, signIn } from '@/app/actions/auth';
+import toast from 'react-hot-toast';
 
 export default function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async () => {
-    const json = JSON.stringify({ email, password });
-    console.log(json);
-
-    router.push('/dashboard');
-    router.refresh();
+  const initialState: ActionResponse = {
+    success: false,
+    message: '',
+    errors: undefined,
   };
+
+  const [state, formAction, isPending] = useActionState<ActionResponse, FormData>(
+    async (_, formData: FormData) => {
+      const result = await signIn(formData);
+      console.log('useActionState->', result);
+
+      toast.success('Signed in successfully');
+      router.push('/dashboard');
+      router.refresh();
+
+      return result;
+    },
+    initialState
+  );
 
   return (
     <main className=' bg-slate-100 h-screen flex flex-col justify-center dark:bg-gray-900'>
@@ -28,7 +42,7 @@ export default function SignInPage() {
           <h3 className=' text-2xl font-semibold pt-2 px-3'>Sign in to your account.</h3>
         </section>
         <section className='flex flex-col p-10 bg-white dark:bg-gray-800 mt-5 items-center max-w-[500px] mx-auto border dark:border-gray-800 rounded-lg shadow'>
-          <Form>
+          <Form action={formAction}>
             <FormGroup>
               <FormLabel htmlFor='email'>Email</FormLabel>
               <FormInput
@@ -54,10 +68,7 @@ export default function SignInPage() {
                 required
               />
             </FormGroup>
-            <button
-              className='p-2 rounded-md bg-theme-coffee w-full dark:bg-amber-900'
-              onClick={handleSubmit}
-            >
+            <button className='p-2 rounded-md bg-theme-coffee w-full dark:bg-amber-900'>
               Sign in
             </button>
           </Form>
