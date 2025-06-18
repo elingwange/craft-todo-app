@@ -1,19 +1,16 @@
-'use client';
-
 import Link from 'next/link';
 import { ArrowLeft, Edit2Icon, Trash2Icon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { notFound } from 'next/navigation';
 import Badge from '@/app/components/ui/Badge';
 
-import { issues } from '@/mocks/issues';
 import { Status, Priority } from '@/lib/types';
 import { formatRelativeTime } from '@/lib/utils';
+import { getIssue } from '@/lib/dal';
 
-export default function IssuePage() {
-  const router = useRouter();
+export default async function IssuePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const issue = await getIssue(parseInt(id));
 
-  const issue = issues[0];
   if (!issue) {
     notFound();
   }
@@ -49,12 +46,12 @@ export default function IssuePage() {
 
   return (
     <main className='flex flex-col w-full h-screen dark:bg-dark-base p-5'>
-      <button onClick={() => router.back()} className='flex'>
+      <button className='flex'>
         <ArrowLeft size={16} className=' mt-1 mr-2' />
         <span className='dark:text-gray-400 dark:hover:text-gray-300'>Back to Issues</span>
       </button>
       <span className='text-3xl md:text-3xl font-semibold text-gray-900 leading-tight dark:text-gray-200 py-4'>
-        Issue Detail page
+        {issue.title}
       </span>
 
       <section className='flex items-center space-x-2'>

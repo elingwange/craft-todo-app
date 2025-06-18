@@ -11,14 +11,6 @@ export default function SignUpPage() {
   const [password2, setPassword2] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async () => {
-    const json = JSON.stringify({ email, password, password2 });
-    console.log(json);
-
-    router.push('/dashboard');
-    router.refresh();
-  };
-
   return (
     <main className=' bg-slate-100 h-screen flex flex-col justify-center dark:bg-gray-900'>
       <div className=''>

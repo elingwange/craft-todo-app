@@ -11,6 +11,15 @@ import {
   FormSelect,
 } from '@/app/components/ui/Form';
 import { ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/schema';
+import { useActionState } from 'react';
+import { ActionResponse } from '@/app/actions/auth';
+import { createIssue } from '@/app/actions/issues';
+
+const initialState: ActionResponse = {
+  success: false,
+  message: '',
+  errors: undefined,
+};
 
 export default function NewIssuePage() {
   const router = useRouter();
@@ -25,6 +34,29 @@ export default function NewIssuePage() {
     value,
   }));
 
+  const userId = 'UPnUTHcggrh6_aOEFu9YW';
+
+  console.log('------- NewIssuePage');
+
+  const [state, formAction, isPending] = useActionState<ActionResponse, FormData>(
+    async (_, formData: FormData) => {
+      const data = {
+        title: formData.get('title') as string,
+        description: formData.get('description') as string,
+        status: formData.get('status') as 'backlog' | 'todo' | 'in_progress' | 'done',
+        priority: formData.get('priority') as 'low' | 'medium' | 'high',
+        userId,
+      };
+
+      console.log('------- upload-> ', data);
+      const result = await createIssue(data);
+      console.log('------- result-> ', result);
+
+      return result;
+    },
+    initialState
+  );
+
   return (
     <main className='flex flex-col w-full h-screen dark:bg-dark-base p-5'>
       <button onClick={() => router.back()} className='flex mt-5'>
@@ -35,10 +67,16 @@ export default function NewIssuePage() {
         Create New Issue
       </h1>
       <section className=' dark:border-dark-border-strong border rounded-md p-6 dark:bg-dark-elevated space-y-5'>
-        <Form>
+        <Form action={formAction}>
           <FormGroup>
             <FormLabel>Title</FormLabel>
-            <FormInput className='' placeholder='Issue title'></FormInput>
+            <FormInput
+              id='title'
+              name='title'
+              className=''
+              placeholder='Issue title'
+              required
+            ></FormInput>
           </FormGroup>
           <FormGroup>
             <FormLabel>Description</FormLabel>
@@ -63,8 +101,7 @@ export default function NewIssuePage() {
           </FormGroup>
           <FormGroup>
             <button
-              type='button'
-              onClick={() => router.back()}
+              type='submit'
               className=' text-black text-sm px-4 py-2 rounded-md hover:bg-theme-coffee-hover bg-theme-coffee dark:bg-amber-900'
             >
               <span className='flex items-center dark:text-white'>Create Issue</span>

@@ -21,7 +21,6 @@ export default function SignInPage() {
   const [state, formAction, isPending] = useActionState<ActionResponse, FormData>(
     async (_, formData: FormData) => {
       const result = await signIn(formData);
-      console.log('useActionState->', result);
 
       toast.success('Signed in successfully');
       router.push('/dashboard');
