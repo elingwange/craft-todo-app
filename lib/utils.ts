@@ -12,3 +12,7 @@ export function formatRelativeTime(date: Date | string) {
   const parsedDate = typeof date === 'string' ? new Date(date) : date;
   return formatDistanceToNow(parsedDate, { addSuffix: true });
 }
+
+export function mockDelay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
