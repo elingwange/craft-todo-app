@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Timestamp } from './components/timestramp';
 //import BurgerMenu from './components/burgermenu';
 
 export default function Home() {
@@ -29,7 +30,7 @@ export default function Home() {
         </button>
       </section>
 
-      <section className='flex flex-col bg-white  px-5 justify-center py-20 align-middle dark:bg-gray-900 dark:text-white'>
+      <section className='flex flex-col bg-white  px-5 justify-center py-20 mb-24 align-middle dark:bg-gray-900 dark:text-white'>
         <header className='flex flex-row p-2items-center justify-center mb-10'>
           <Image
             src='/building.png'
@@ -68,6 +69,89 @@ export default function Home() {
           <div className='text-gray-600 dark:text-gray-400'>CEO of Workcation</div>
         </div>
       </section>
+
+      <footer className='border-t border-gray-200 dark:border-dark-border-subtle footer-background flex flex-col p-2 py-7 bg-white items-center justify-center  dark:bg-black dark:text-white'>
+        <div className='container mx-auto px-4 py-8'>
+          <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
+            <div className='flex flex-col space-y-4'>
+              <h3 className='text-lg font-semibold'>Craft</h3>
+              <p>A modern project management tool built with Next.js.</p>
+            </div>
+
+            <div className='flex flex-col space-y-4'>
+              <h3 className='text-ms font-semibold'>Product</h3>
+              <ul className=' space-y-2'>
+                <li>
+                  <Link
+                    href={'/'}
+                    className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'
+                  >
+                    Features
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={'/'}
+                    className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'
+                  >
+                    Prices
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={'/'}
+                    className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'
+                  >
+                    FAQ
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className='flex flex-col space-y-4'>
+              <h3 className='text-ms font-semibold'>Resourses</h3>
+              <ul className=' space-y-2'>
+                <li>
+                  <Link
+                    href={'/'}
+                    className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'
+                  >
+                    Documention
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={'/'}
+                    className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'
+                  >
+                    GitHub
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className='flex flex-col space-y-4'>
+              <h3 className='text-ms font-semibold'>Legal</h3>
+              <ul className=' space-y-2'>
+                <li>
+                  <Link
+                    href={'/'}
+                    className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'
+                  >
+                    Terms of Service
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className='mt-8 pt-8 text-center'>
+          <p className='text-sm text-gray-600 dark:text-gray-400'>
+            &copy; <Timestamp /> Craft. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
