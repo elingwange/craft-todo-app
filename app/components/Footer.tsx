@@ -3,9 +3,39 @@
 import Link from 'next/link';
 import Timestamp from './Timestamp';
 
-export default function Footer() {
+function FootLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <footer className='border-t border-gray-200 dark:border-dark-border-subtle footer-background flex flex-col p-2 py-7 bg-white items-center justify-center  dark:bg-black dark:text-white'>
+    <Link href={href} className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'>
+      {children}
+    </Link>
+  );
+}
+
+export default function Footer() {
+  const footerSections = [
+    {
+      title: 'Product',
+      links: [
+        { name: 'Features', href: '/' },
+        { name: 'Prices', href: '/' },
+        { name: 'FAQ', href: '/' },
+      ],
+    },
+    {
+      title: 'Resources',
+      links: [
+        { name: 'Documentation', href: '/' },
+        { name: 'GitHub', href: '/' },
+      ],
+    },
+    {
+      title: 'Legal',
+      links: [{ name: 'Terms of Service', href: '/' }],
+    },
+  ];
+
+  return (
+    <footer className='flex flex-col justify-center p-2 py-7 border-t border-gray-200 dark:border-dark-border-subtle footer-background bg-white items-center  dark:bg-black dark:text-white'>
       <div className='container mx-auto px-4 py-8'>
         <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
           <div className='flex flex-col space-y-4'>
@@ -13,71 +43,18 @@ export default function Footer() {
             <p>A modern project management tool built with Next.js.</p>
           </div>
 
-          <div className='flex flex-col space-y-4'>
-            <h3 className='text-base font-semibold'>Product</h3>
-            <ul className=' space-y-2'>
-              <li>
-                <Link
-                  href={'/'}
-                  className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'
-                >
-                  Features
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={'/'}
-                  className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'
-                >
-                  Prices
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={'/'}
-                  className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'
-                >
-                  FAQ
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className='flex flex-col space-y-4'>
-            <h3 className='text-base font-semibold'>Resources</h3>
-            <ul className=' space-y-2'>
-              <li>
-                <Link
-                  href={'/'}
-                  className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'
-                >
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={'/'}
-                  className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'
-                >
-                  GitHub
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className='flex flex-col space-y-4'>
-            <h3 className='text-base font-semibold'>Legal</h3>
-            <ul className=' space-y-2'>
-              <li>
-                <Link
-                  href={'/'}
-                  className='text-sm text-gray-800 dark:text-gray-100 hover:text-amber-700'
-                >
-                  Terms of Service
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {footerSections.map((section) => (
+            <div key={section.title} className='flex flex-col space-y-4'>
+              <h3 className='text-base font-semibold'>{section.title}</h3>
+              <ul role='list' className=' space-y-2'>
+                {section.links.map((link) => (
+                  <li key={link.name} role='listitem'>
+                    <FootLink href={link.href}>{link.name}</FootLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
 
