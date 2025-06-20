@@ -11,8 +11,8 @@ module.exports = {
         background: 'var(--color-background)',
         foreground: 'var(--color-foreground)',
         'theme-light': '#f8f4ea',
-        'theme-coffee': '#d7c8af',
-        'theme-coffee-hover': '#d5bf98',
+        'theme-coffee': '#CAAE7D',
+        'theme-coffee-hover': '#b09971',
         dark: {
           base: '#121212',
           elevated: '#1A1A1A',

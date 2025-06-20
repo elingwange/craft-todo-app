@@ -4,6 +4,11 @@ import { issues } from '@/db/schema';
 import { unstable_cacheTag as cacheTag } from 'next/cache';
 import { mockDelay } from './utils';
 
+export async function getCurrentUser() {
+  await mockDelay(2000);
+  return 'user';
+}
+
 export async function getIssue(id: number) {
   try {
     await mockDelay(700);
