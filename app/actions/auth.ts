@@ -1,4 +1,5 @@
 'use server';
+import { mockDelay } from '@/lib/utils';
 
 export type ActionResponse = {
   success: boolean;
@@ -9,6 +10,8 @@ export type ActionResponse = {
 
 export async function signIn(formData: FormData): Promise<ActionResponse> {
   console.log('------- signIn->', formData);
+
+  await mockDelay(2000);
 
   return {
     success: false,

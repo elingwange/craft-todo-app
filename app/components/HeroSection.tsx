@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Button from '../components/ui/Button';
 
 export default function HeroSection() {
@@ -11,7 +12,9 @@ export default function HeroSection() {
         A simple yet powerful tool to streamline team workflows and resolve issues faster. Manage
         your projects with ease.
       </p>
-      <Button className='my-8'>Get Started</Button>
+      <Link href='/signin'>
+        <Button className='my-8'>Get Started</Button>
+      </Link>
     </section>
   );
 }
