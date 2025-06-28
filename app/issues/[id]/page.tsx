@@ -6,6 +6,7 @@ import Badge from '@/app/components/ui/Badge';
 import { Status, Priority } from '@/lib/types';
 import { formatRelativeTime } from '@/lib/utils';
 import { getIssue } from '@/lib/dal';
+import DeleteIssueButton from '@/app/components/DeleteIssueButton';
 
 export default async function IssuePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -64,14 +65,7 @@ export default async function IssuePage({ params }: { params: Promise<{ id: stri
           </button>
         </Link>
 
-        <Link href={`/issues`}>
-          <button className='border border-gray-300 bg-transparent hover:bg-gray-100 dark:border-dark-border-medium dark:hover:bg-gray-800 dark:hover:text-gray-100 dark:text-gray-100 h-8 px-3 text-xs rounded-md'>
-            <span className='flex items-center'>
-              <Trash2Icon size={16} className='mr-1' />
-              Delete
-            </span>
-          </button>
-        </Link>
+        <DeleteIssueButton id={parseInt(id)} />
       </section>
 
       <div className='bg-white dark:bg-dark-elevated border border-gray-200 dark:border-dark-border-default rounded-lg shadow-sm p-6 my-8'>

@@ -6,6 +6,8 @@ import { formatRelativeTime } from '@/lib/utils';
 import { ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/schema';
 import { getIssues } from '@/lib/dal';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
   //  'use cache';
   const issues = await getIssues();

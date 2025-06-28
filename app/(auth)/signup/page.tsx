@@ -1,59 +1,89 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useActionState, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Form, FormGroup, FormInput, FormLabel } from '@/app/components/ui/Form';
+import { Form, FormError, FormGroup, FormInput, FormLabel } from '@/app/components/ui/Form';
 import Button from '@/app/components/ui/Button';
 import AuthPageLayout from '@/app/components/AuthPageLayout';
+import { ActionResponse, signUp } from '@/app/actions/auth';
+import toast from 'react-hot-toast';
+
+const initialState: ActionResponse = {
+  success: false,
+  message: '',
+  errors: undefined,
+};
 
 export default function SignUpPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
   const router = useRouter();
 
-  const isPending = false;
+  const [state, formAction, isPending] = useActionState<ActionResponse, FormData>(
+    async (prevState: ActionResponse, formData: FormData) => {
+      try {
+        const result = await signUp(formData);
+        console.error('result signing up:', result);
+
+        if (result.success) {
+          toast.success('Account created successfully');
+          router.push('/dashboard');
+        }
+        return result;
+      } catch (error) {
+        console.error('Error signing up:', error);
+        return {
+          success: false,
+          message: (error as Error).message || 'An error occurred',
+          errors: undefined,
+        };
+      }
+    },
+    initialState
+  );
 
   return (
     <AuthPageLayout title='Create a new account.'>
-      <Form>
+      <Form action={formAction}>
+        {!state.success && state?.message && <FormError>{state?.message}</FormError>}
+
         <FormGroup>
           <FormLabel htmlFor='email'>Email</FormLabel>
           <FormInput
             id='email'
             name='email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             type='email'
-            aria-describedby='email-error'
-            autoComplete='email'
             required
+            disabled={isPending}
+            autoComplete='email'
+            aria-describedby='email-error'
           />
+          {state?.errors?.email && (
+            <p id='email_error' className='text-sm text-red-500'>
+              {state.errors.email[0]}
+            </p>
+          )}
         </FormGroup>
         <FormGroup>
           <FormLabel htmlFor='password'>Password</FormLabel>
           <FormInput
             id='password'
             name='password'
-            value={email}
-            onChange={(e) => setPassword(e.target.value)}
             type='password'
-            aria-describedby='email-error'
-            autoComplete='password'
             required
+            disabled={isPending}
+            autoComplete='new-password'
+            aria-describedby='email-error'
           />
         </FormGroup>
         <FormGroup>
-          <FormLabel htmlFor='password2'>Confirm Password</FormLabel>
+          <FormLabel htmlFor='confirmPassword'>Confirm Password</FormLabel>
           <FormInput
-            id='password2'
-            name='password2'
-            value={password2}
-            onChange={(e) => setPassword2(e.target.value)}
+            id='confirmPassword'
+            name='confirmPassword'
             type='password'
+            disabled={isPending}
             aria-describedby='email-error'
-            autoComplete='password2'
+            autoComplete='new-password'
             required
           />
         </FormGroup>

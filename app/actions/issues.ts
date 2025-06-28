@@ -6,6 +6,7 @@ import { ActionResponse } from './auth';
 import { db } from '@/db';
 import { issues } from '@/db/schema';
 import { revalidateTag } from 'next/cache';
+import { eq } from 'drizzle-orm';
 
 const IssueSchema = z.object({
   title: z
@@ -69,6 +70,29 @@ export async function createIssue(data: IssueData): Promise<ActionResponse> {
       success: false,
       message: 'An error occurred while creating the issue',
       error: 'Failed to create issue',
+    };
+  }
+}
+
+export async function deleteIssue(id: number) {
+  try {
+    // Security check - ensure user is authenticated
+    await mockDelay(700);
+    // const user = await getCurrentUser();
+    // if (!user) {
+    //   throw new Error('Unauthorized');
+    // }
+
+    // Delete issue
+    await db.delete(issues).where(eq(issues.id, id));
+
+    return { success: true, message: 'Issue deleted successfully' };
+  } catch (error) {
+    console.error('Error deleting issue:', error);
+    return {
+      success: false,
+      message: 'An error occurred while deleting the issue',
+      error: 'Failed to delete issue',
     };
   }
 }

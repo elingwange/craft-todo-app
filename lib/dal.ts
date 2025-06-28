@@ -1,13 +1,24 @@
 import { db } from '@/db';
 import { eq } from 'drizzle-orm';
-import { issues } from '@/db/schema';
+import { issues, users } from '@/db/schema';
 import { unstable_cacheTag as cacheTag } from 'next/cache';
 import { mockDelay } from './utils';
+import { cache } from 'react';
 
 export async function getCurrentUser() {
   await mockDelay(2000);
   return 'user';
 }
+
+export const getUserByEmail = cache(async (email: string) => {
+  try {
+    const result = await db.select().from(users).where(eq(users.email, email));
+    return result[0] || null;
+  } catch (error) {
+    console.error('Error getting user by email:', error);
+    throw error;
+  }
+});
 
 export async function getIssue(id: number) {
   try {

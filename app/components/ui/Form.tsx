@@ -12,6 +12,18 @@ export function Form({ children, className, ...props }: FormProps) {
   );
 }
 
+// Form Error
+interface FormErrorProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  children: React.ReactNode;
+}
+export function FormError({ className, children, ...props }: FormErrorProps) {
+  return (
+    <p className={cn('text-xs font-medium text-red-500', className)} {...props}>
+      {children}
+    </p>
+  );
+}
+
 // Form Group
 interface FormGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
