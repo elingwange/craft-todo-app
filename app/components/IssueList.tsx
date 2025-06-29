@@ -14,6 +14,7 @@ export default function IssueList() {
     async function fetchData() {
       const res = await fetch('/api/issues');
       const data = await res.json();
+      console.log('---- issues->', data);
       setIssues(data);
     }
 
