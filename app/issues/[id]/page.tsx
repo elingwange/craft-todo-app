@@ -56,7 +56,7 @@ export default async function IssuePage({ params }: { params: Promise<{ id: stri
       </span>
 
       <section className='flex items-center space-x-2'>
-        <Link href={`/issues`}>
+        <Link href={`/issues/${id}/edit`}>
           <button className='border border-gray-300 bg-transparent hover:bg-gray-100 dark:border-dark-border-medium dark:hover:bg-gray-800 dark:hover:text-gray-100 dark:text-gray-100 h-8 px-3 text-xs rounded-md'>
             <span className='flex items-center'>
               <Edit2Icon size={16} className='mr-1' />

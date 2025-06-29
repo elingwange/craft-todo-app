@@ -7,6 +7,7 @@ import { db } from '@/db';
 import { issues } from '@/db/schema';
 import { revalidateTag } from 'next/cache';
 import { eq } from 'drizzle-orm';
+import { getCurrentUser } from '@/lib/dal';
 
 const IssueSchema = z.object({
   title: z
@@ -70,6 +71,54 @@ export async function createIssue(data: IssueData): Promise<ActionResponse> {
       success: false,
       message: 'An error occurred while creating the issue',
       error: 'Failed to create issue',
+    };
+  }
+}
+
+export async function updateIssue(id: number, data: Partial<IssueData>): Promise<ActionResponse> {
+  try {
+    // Security check - ensure user is authenticated
+    await mockDelay(700);
+    const user = await getCurrentUser();
+    if (!user) {
+      return {
+        success: false,
+        message: 'Unauthorized access',
+        error: 'Unauthorized',
+      };
+    }
+
+    // Allow partial validation for updates
+    const UpdateIssueSchema = IssueSchema.partial();
+    const validationResult = UpdateIssueSchema.safeParse(data);
+
+    if (!validationResult.success) {
+      return {
+        success: false,
+        message: 'Validation failed',
+        errors: validationResult.error.flatten().fieldErrors,
+      };
+    }
+
+    // Type safe update object with validated data
+    const validatedData = validationResult.data;
+    const updateData: Record<string, unknown> = {};
+
+    if (validatedData.title !== undefined) updateData.title = validatedData.title;
+    if (validatedData.description !== undefined) updateData.description = validatedData.description;
+    if (validatedData.status !== undefined) updateData.status = validatedData.status;
+    if (validatedData.priority !== undefined) updateData.priority = validatedData.priority;
+
+    // Update issue
+    await db.update(issues).set(updateData).where(eq(issues.id, id));
+
+    return { success: true, message: 'Issue updated successfully' };
+  } catch (error) {
+    console.error('Error updating issue:', error);
+    return {
+      success: false,
+      message: 'An error occurred while updating the issue',
+      error: 'Failed to update issue',
     };
   }
 }
