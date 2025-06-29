@@ -6,6 +6,11 @@ import { users } from '@/db/schema';
 import * as jose from 'jose';
 import { cache } from 'react';
 
+// Verify a password
+export async function verifyPassword(password: string, hashedPassword: string) {
+  return compare(password, hashedPassword);
+}
+
 // Hash a password
 export async function hashPassword(password: string) {
   return hash(password, 10);
@@ -93,6 +98,8 @@ export const getSession = cache(async () => {
     const cookieStore = await cookies();
     const token = cookieStore.get('auth_token')?.value;
 
+    console.log('--- token-> ', token);
+
     if (!token) return null;
 
     const payload = await verifyJWT(token as string);
@@ -112,3 +119,9 @@ export const getSession = cache(async () => {
     return null;
   }
 });
+
+// Delete session by clearing the JWT cookie
+export async function deleteSession() {
+  const cookieStore = await cookies();
+  cookieStore.delete('auth_token');
+}

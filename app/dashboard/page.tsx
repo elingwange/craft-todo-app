@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { HomeIcon, PlusIcon, LogOutIcon, UserIcon } from 'lucide-react';
+import { HomeIcon, PlusIcon, UserIcon } from 'lucide-react';
 import IssueList from '../components/IssueList';
+import SignOutButton from '../components/LoginOutButton';
 
 export default async function DashboardPage() {
   return (
@@ -43,16 +44,8 @@ export default async function DashboardPage() {
             </span>
             <span className='hidden md:inline'>abc@gmail.com</span>
           </Link>
-          <Link
-            id='signout'
-            href='/'
-            className='flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
-          >
-            <span className='text-gray-500 dark:text-gray-400 mr-3'>
-              <LogOutIcon size={20} />
-            </span>
-            <span className='hidden md:inline'>Sign out</span>
-          </Link>
+
+          <SignOutButton />
         </div>
       </div>
 

@@ -88,6 +88,7 @@ export default function NewIssuePage() {
               id='description'
               name='description'
               placeholder='Describe the issue...'
+              rows={4}
             ></FormTextarea>
           </FormGroup>
           <FormGroup>

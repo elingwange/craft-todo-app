@@ -1,14 +1,28 @@
 import { db } from '@/db';
 import { eq } from 'drizzle-orm';
 import { issues, users } from '@/db/schema';
-import { unstable_cacheTag as cacheTag } from 'next/cache';
 import { mockDelay } from './utils';
 import { cache } from 'react';
+import { getSession } from './auth';
 
-export async function getCurrentUser() {
-  await mockDelay(2000);
-  return 'user';
-}
+export const getCurrentUser = cache(async () => {
+  const session = await getSession();
+  if (!session) return null;
+
+  // Skip database query during prerendering if we don't have a session
+  if (typeof window === 'undefined' && process.env.NEXT_PHASE === 'phase-production-build') {
+    return null;
+  }
+
+  try {
+    const result = await db.select().from(users).where(eq(users.id, session.userId));
+
+    return result[0] || null;
+  } catch (error) {
+    console.error('Error getting user by ID:', error);
+    return null;
+  }
+});
 
 export const getUserByEmail = cache(async (email: string) => {
   try {
@@ -37,9 +51,15 @@ export async function getIssue(id: number) {
 }
 
 export async function getIssues() {
+  console.log('----- getIssues()');
+  const user = await getCurrentUser();
+  console.log('----- user.id-> ', user?.id);
+  if (!user) {
+    throw new Error('Failed to get user info');
+  }
   try {
-    await mockDelay(700);
     const result = await db.query.issues.findMany({
+      where: eq(issues.userId, user.id),
       with: {
         user: true,
       },
