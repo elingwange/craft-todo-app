@@ -47,11 +47,13 @@ export default async function IssuePage({ params }: { params: Promise<{ id: stri
 
   return (
     <main className='flex flex-col w-full h-screen dark:bg-dark-base p-5'>
-      <button className='flex'>
-        <ArrowLeft size={16} className=' mt-1 mr-2' />
-        <span className='dark:text-gray-400 dark:hover:text-gray-300'>Back to Issues</span>
-      </button>
-      <span className='text-3xl md:text-3xl font-semibold text-gray-900 leading-tight dark:text-gray-200 py-4'>
+      <Link href={'/dashboard'} className='mb-4'>
+        <button className='flex'>
+          <ArrowLeft size={16} className=' mt-1 mr-2' />
+          <span className='dark:text-gray-400 dark:hover:text-gray-300'>Back to Issues</span>
+        </button>
+      </Link>
+      <span className='text-3xl md:text-3xl font-semibold text-gray-900 leading-tight dark:text-gray-200 mb-4'>
         {issue.title}
       </span>
 

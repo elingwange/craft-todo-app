@@ -37,8 +37,6 @@ export async function getIssue(id: number) {
 }
 
 export async function getIssues() {
-  'use cache';
-  cacheTag('issues');
   try {
     await mockDelay(700);
     const result = await db.query.issues.findMany({

@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ArrowLeftIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import {
   Form,
@@ -14,6 +14,7 @@ import { ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/schema';
 import { useActionState } from 'react';
 import { ActionResponse } from '@/app/actions/auth';
 import { createIssue } from '@/app/actions/issues';
+import Link from 'next/link';
 
 const initialState: ActionResponse = {
   success: false,
@@ -59,10 +60,13 @@ export default function NewIssuePage() {
 
   return (
     <main className='flex flex-col w-full h-screen dark:bg-dark-base p-5'>
-      <button onClick={() => router.back()} className='flex mt-5'>
-        <ArrowLeft size={16} className=' mt-1 mr-2' />
-        <span className='dark:text-gray-400 dark:hover:text-gray-300'>Back to Dashboard</span>
-      </button>
+      <Link
+        href='/dashboard'
+        className='inline-flex items-center text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 mb-6'
+      >
+        <ArrowLeftIcon size={16} className='mr-1' />
+        Back to Dashboard
+      </Link>
       <h1 className='text-2xl md:text-2xl font-semibold text-gray-900 leading-tight dark:text-gray-200 py-6'>
         Create New Issue
       </h1>
