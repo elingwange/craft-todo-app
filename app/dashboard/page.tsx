@@ -2,8 +2,10 @@ import Link from 'next/link';
 import { HomeIcon, PlusIcon, UserIcon } from 'lucide-react';
 import IssueList from '../components/IssueList';
 import SignOutButton from '../components/LoginOutButton';
+import { getCurrentUser } from '@/lib/dal';
 
 export default async function DashboardPage() {
+  const user = await getCurrentUser();
   return (
     <div className='flex w-full h-screen'>
       <div className='flex flex-col w-20 md:w-96 h-screen bg-slate-50 px-6 py-4 transition-all duration-300 dark:bg-[#1A1A1A]'>
@@ -42,7 +44,7 @@ export default async function DashboardPage() {
             <span className='text-gray-500 dark:text-gray-400 mr-3'>
               <UserIcon size={20} />
             </span>
-            <span className='hidden md:inline'>abc@gmail.com</span>
+            <span className='hidden md:inline'>{user?.email}</span>
           </Link>
 
           <SignOutButton />
