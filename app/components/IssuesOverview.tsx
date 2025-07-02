@@ -1,32 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  AreaChart,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Area,
-} from 'recharts';
-import GradientAreaChart from './GradientAreaChart';
-
-const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff7f50'];
+import IssuesDistributionChart from './IssuesDistributionChart';
+import IssuesTrendChart from './IssuesTrendChart';
 
 export default function IssuesOverview() {
-  const [data, setData] = useState<{ status: string; count: number }[]>([]);
-
-  useEffect(() => {
-    fetch('/api/stats/issues')
-      .then((res) => res.json())
-      .then(setData);
-  }, []);
-
   return (
     <div className='w-full h-full px-4 flex flex-col '>
       <h2 className='text-xl md:text-2xl pt-7 mb-1'>Issues Overview</h2>
@@ -43,30 +20,17 @@ export default function IssuesOverview() {
         ))}
       </section>
 
-      <div className=' flex flex-col w-full h-72 md:h-96 mt-5 bg-slate-50 rounded-lg shadow-md py-3'>
-        <h3 className='text-lg md:text-xl px-2'>Task Completion Trend</h3>
-        <GradientAreaChart />
-      </div>
+      <section className='w-full flex flex-col mt-5 md:flex-row md:max-w-5xl md:mx-auto'>
+        <div className='md:basis-3/5 flex flex-col w-full h-72 md:h-96 bg-slate-50 dark:bg-[#1A1A1A] rounded-lg shadow-md py-3'>
+          <h3 className='text-lg md:text-xl px-2'>Task Completion Trend</h3>
+          <IssuesTrendChart />
+        </div>
 
-      <ResponsiveContainer width='100%' height='25%'>
-        <PieChart>
-          <Pie
-            data={data}
-            dataKey='count'
-            nameKey='status'
-            cx='50%'
-            cy='45%'
-            outerRadius={80}
-            label
-          >
-            {data.map((_, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
-      </ResponsiveContainer>
+        <div className='md:basis-2/5 flex flex-col w-full h-72 md:h-96 bg-slate-50 dark:bg-[#1A1A1A] rounded-lg shadow-md py-3 ml-0 md:ml-4 mt-4 md:mt-0'>
+          <h3 className='text-lg md:text-xl px-2'>Task Status Distribution</h3>
+          <IssuesDistributionChart />
+        </div>
+      </section>
     </div>
   );
 }

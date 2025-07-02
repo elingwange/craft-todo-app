@@ -57,7 +57,7 @@ export default async function DashboardPage() {
         </section>
       </aside>
 
-      <main className='flex flex-col w-full h-screen'>
+      <main className='flex flex-col w-full h-screen  overflow-y-auto'>
         <IssuesOverview />
       </main>
     </div>
