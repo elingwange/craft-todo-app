@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { HomeIcon, ListChecks, PlusIcon, UserIcon } from 'lucide-react';
 import SignOutButton from '../components/LoginOutButton';
 import { getCurrentUser } from '@/lib/dal';
-import Overview from '../components/IssuesOverview';
+import IssuesOverview from '../components/IssuesOverview';
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
@@ -57,8 +57,8 @@ export default async function DashboardPage() {
         </section>
       </aside>
 
-      <main className='flex flex-col w-full h-screen p-8 '>
-        <Overview />
+      <main className='flex flex-col w-full h-screen'>
+        <IssuesOverview />
       </main>
     </div>
   );
