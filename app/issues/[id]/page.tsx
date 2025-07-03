@@ -47,7 +47,7 @@ export default async function IssuePage({ params }: { params: Promise<{ id: stri
 
   return (
     <main className='flex flex-col w-full h-screen dark:bg-dark-base p-5'>
-      <Link href={'/dashboard'} className='mb-4'>
+      <Link href={'/issues'} className='mb-4'>
         <button className='flex'>
           <ArrowLeft size={16} className=' mt-1 mr-2' />
           <span className='dark:text-gray-400 dark:hover:text-gray-300'>Back to Issues</span>

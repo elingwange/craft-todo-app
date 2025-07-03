@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Badge from '../components/ui/Badge';
-import { Status, Priority } from '@/lib/types';
 import { ISSUE_STATUS, ISSUE_PRIORITY, Issue } from '@/db/schema';
 import { formatRelativeTime } from '@/lib/utils';
+import { Priority, Status } from '@/types/issue';
 
 export default function IssueList() {
   const [issues, setIssues] = useState<Issue[] | null>(null);

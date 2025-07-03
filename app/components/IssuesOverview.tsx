@@ -8,7 +8,7 @@ import { IssuesOverviewResponse } from '@/types/stats';
 export default function IssuesOverview() {
   const [data, setData] = useState<IssuesOverviewResponse>();
   useEffect(() => {
-    fetch('/api/stats/issues')
+    fetch('/api/stats/overview')
       .then((res) => res.json())
       .then(setData);
   }, []);

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getIssues } from '../../../../lib/dal';
 import { IssuesOverviewResponse } from '@/types/stats';
-import { Status } from '@/types/issue';
 
 export async function GET(): Promise<NextResponse<IssuesOverviewResponse>> {
   /*
@@ -50,7 +49,8 @@ export async function GET(): Promise<NextResponse<IssuesOverviewResponse>> {
       data.distribution[3].count++;
     }
   });
-  data.overview.completionRate = data.overview.completed / data.overview.total;
+  const rate = data.overview.completed / data.overview.total;
+  data.overview.completionRate = (rate * 100).toFixed(1) + '%';
 
   return NextResponse.json(data);
 }
