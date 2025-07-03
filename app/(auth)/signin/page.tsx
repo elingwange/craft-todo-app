@@ -20,7 +20,7 @@ export default function SignInPage() {
     errors: undefined,
   };
 
-  const [state, formAction, isPending] = useActionState<ActionResponse, FormData>(
+  const [, formAction, isPending] = useActionState<ActionResponse, FormData>(
     async (_, formData: FormData) => {
       const result = await signIn(formData);
 

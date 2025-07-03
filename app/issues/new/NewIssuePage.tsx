@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import {
   Form,
   FormGroup,
@@ -23,8 +22,6 @@ const initialState: ActionResponse = {
 };
 
 export default function NewIssuePage({ userId }: { userId: string }) {
-  const router = useRouter();
-
   const statusOptions = Object.values(ISSUE_STATUS).map(({ label, value }) => ({
     label,
     value,
@@ -35,24 +32,21 @@ export default function NewIssuePage({ userId }: { userId: string }) {
     value,
   }));
 
-  const [state, formAction, isPending] = useActionState<ActionResponse, FormData>(
-    async (_, formData: FormData) => {
-      const data = {
-        title: formData.get('title') as string,
-        description: formData.get('description') as string,
-        status: formData.get('status') as 'backlog' | 'todo' | 'in_progress' | 'done',
-        priority: formData.get('priority') as 'low' | 'medium' | 'high',
-        userId,
-      };
+  const [, formAction] = useActionState<ActionResponse, FormData>(async (_, formData: FormData) => {
+    const data = {
+      title: formData.get('title') as string,
+      description: formData.get('description') as string,
+      status: formData.get('status') as 'backlog' | 'todo' | 'in_progress' | 'done',
+      priority: formData.get('priority') as 'low' | 'medium' | 'high',
+      userId,
+    };
 
-      console.log('------- upload-> ', data);
-      const result = await createIssue(data);
-      console.log('------- result-> ', result);
+    console.log('------- upload-> ', data);
+    const result = await createIssue(data);
+    console.log('------- result-> ', result);
 
-      return result;
-    },
-    initialState
-  );
+    return result;
+  }, initialState);
 
   return (
     <main className='flex flex-col w-full h-screen dark:bg-dark-base p-5'>

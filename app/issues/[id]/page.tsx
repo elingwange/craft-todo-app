@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import { ArrowLeft, Edit2Icon, Trash2Icon } from 'lucide-react';
+import { ArrowLeft, Edit2Icon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import Badge from '@/app/components/ui/Badge';
 
-import { Status, Priority } from '@/lib/types';
 import { formatRelativeTime } from '@/lib/utils';
 import { getIssue } from '@/lib/dal';
 import DeleteIssueButton from '@/app/components/DeleteIssueButton';
+import { Priority, Status } from '@/types/issue';
 
 export default async function IssuePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -15,7 +15,7 @@ export default async function IssuePage({ params }: { params: Promise<{ id: stri
   if (!issue) {
     notFound();
   }
-  const { title, description, status, priority, createdAt, updatedAt, user } = issue;
+  const { description, status, priority, createdAt, updatedAt } = issue;
 
   const getStatusLabel = (status: string) => {
     switch (status) {

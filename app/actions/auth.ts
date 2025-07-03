@@ -1,17 +1,7 @@
 'use server';
-import { db } from '@/db';
-import { users } from '@/db/schema';
-import {
-  createUser,
-  createSession,
-  getSession,
-  hashPassword,
-  deleteSession,
-  verifyPassword,
-} from '@/lib/auth';
+import { createUser, createSession, getSession, deleteSession, verifyPassword } from '@/lib/auth';
 import { getUserByEmail } from '@/lib/dal';
 import { mockDelay } from '@/lib/utils';
-import { zhHK } from 'date-fns/locale';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 

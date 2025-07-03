@@ -26,7 +26,7 @@ export async function GET(): Promise<NextResponse<IssuesOverviewResponse>> {
     overview: {
       total: 0,
       completed: 0,
-      completionRate: 0,
+      completionRate: '',
     },
     distribution: [
       { status: 'backlog', count: 0 },
