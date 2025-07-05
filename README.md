@@ -2,6 +2,8 @@
 
 A modern, responsive task management web application built with **Next.js 15**, **React 19**, **Tailwind CSS**, and **Drizzle ORM**. Designed for clarity, usability, and speed, this app supports task creation, filtering, and data visualization. Ideal for personal productivity or as a foundation for team-oriented tools.
 
+🔗 **Live Demo:** [craft-todo.vercel.app](https://craft-todo-mkpnoid9w-evans-projects-4883610d.vercel.app/)
+
 ---
 
 ## ✨ Features
