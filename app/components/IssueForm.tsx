@@ -53,7 +53,7 @@ export default function IssueForm({ issue, userId, isEditing = false }: IssueFor
         if (result.success) {
           router.refresh();
           if (!isEditing) {
-            router.push('/dashboard');
+            router.push('/issues');
           }
         }
 
