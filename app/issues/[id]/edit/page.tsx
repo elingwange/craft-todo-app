@@ -1,4 +1,4 @@
-import IssueForm from '@/app/components/IssueForm';
+import IssueForm from '@/app/components/business/IssueForm';
 import { getIssue } from '@/lib/dal';
 import { ArrowLeftIcon } from 'lucide-react';
 import Link from 'next/link';

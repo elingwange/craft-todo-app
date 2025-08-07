@@ -3,18 +3,18 @@
 import { useActionState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Issue, ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/schema';
-import Button from './basic/Button';
+import { createIssue, updateIssue } from '@/app/actions/issues';
+import Button from '../basic/Button';
+import { ActionResponse } from '@/app/actions/auth';
 import {
   Form,
-  FormGroup,
-  FormLabel,
-  FormInput,
-  FormTextarea,
-  FormSelect,
   FormError,
-} from './compound/Form';
-import { createIssue, updateIssue } from '@/app/actions/issues';
-import { ActionResponse } from '../actions/auth';
+  FormGroup,
+  FormInput,
+  FormLabel,
+  FormSelect,
+  FormTextarea,
+} from '../compound/Form/Form';
 
 interface IssueFormProps {
   issue?: Issue;

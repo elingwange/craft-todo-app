@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import Badge from './basic/Badge';
 import { ISSUE_STATUS, ISSUE_PRIORITY, Issue } from '@/db/schema';
 import { formatRelativeTime } from '@/lib/utils';
 import { Priority, Status } from '@/types/issue';
+import Badge from '../basic/Badge';
 
 export default function IssueList() {
   const [issues, setIssues] = useState<Issue[] | null>(null);

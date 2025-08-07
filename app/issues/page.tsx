@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowLeft, PlusIcon } from 'lucide-react';
-import IssueList from '../components/IssueList';
+import IssueList from '../components/business/IssueList';
 
 export default function DashboardPage() {
   return (
