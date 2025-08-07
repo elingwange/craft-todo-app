@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState, useActionState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Form, FormGroup, FormInput, FormLabel } from '@/app/components/compound/Form/Form';
+import { Form, FormGroup, FormInput, FormLabel } from '@/app/components/compound/Form';
 import { ActionResponse, signIn } from '@/app/actions/auth';
 import toast from 'react-hot-toast';
 import Button from '@/app/components/basic/Button';

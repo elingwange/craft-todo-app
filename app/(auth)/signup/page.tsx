@@ -3,13 +3,7 @@
 import Link from 'next/link';
 import { useActionState } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  Form,
-  FormError,
-  FormGroup,
-  FormInput,
-  FormLabel,
-} from '@/app/components/compound/Form/Form';
+import { Form, FormError, FormGroup, FormInput, FormLabel } from '@/app/components/compound/Form';
 import Button from '@/app/components/basic/Button';
 import AuthPageLayout from '@/app/components/layout/AuthPageLayout';
 import { ActionResponse, signUp } from '@/app/actions/auth';

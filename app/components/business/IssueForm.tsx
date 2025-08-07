@@ -14,7 +14,7 @@ import {
   FormLabel,
   FormSelect,
   FormTextarea,
-} from '../compound/Form/Form';
+} from '../compound/Form';
 
 interface IssueFormProps {
   issue?: Issue;

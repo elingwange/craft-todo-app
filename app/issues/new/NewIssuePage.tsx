@@ -8,7 +8,7 @@ import {
   FormTextarea,
   FormSelect,
   FormError,
-} from '@/app/components/compound/Form/Form';
+} from '@/app/components/compound/Form';
 import { ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/schema';
 import { useActionState } from 'react';
 import { ActionResponse } from '@/app/actions/auth';
