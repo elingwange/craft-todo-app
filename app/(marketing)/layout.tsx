@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Button from '../components/ui/Button';
+import Button from '../components/basic/Button';
 import { Suspense } from 'react';
-import DashboardButton from '../components/DashboardButton';
-import Footer from '../components/Footer';
+import DashboardButton from '../components/business/DashboardButton';
+import Footer from '../components/layout/Footer';
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (

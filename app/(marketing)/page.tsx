@@ -1,5 +1,5 @@
-import HeroSection from '../components/HeroSection';
-import Testimonial from '../components/Testimonial';
+import HeroSection from '../components/layout/HeroSection';
+import Testimonial from '../components/layout/Testimonial';
 
 export default function HomePage() {
   return (

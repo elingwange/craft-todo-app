@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { ArrowLeft, Edit2Icon } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import Badge from '@/app/components/ui/Badge';
+import Badge from '@/app/components/basic/Badge';
 
 import { formatRelativeTime } from '@/lib/utils';
 import { getIssue } from '@/lib/dal';
-import DeleteIssueButton from '@/app/components/DeleteIssueButton';
+import DeleteIssueButton from '@/app/components/business/DeleteIssueButton';
 import { Priority, Status } from '@/types/issue';
 
 export default async function IssuePage({ params }: { params: Promise<{ id: string }> }) {

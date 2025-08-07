@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import Button from './ui/Button';
+import Button from '../basic/Button';
 import { Trash2Icon } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { deleteIssue } from '@/app/actions/issues';

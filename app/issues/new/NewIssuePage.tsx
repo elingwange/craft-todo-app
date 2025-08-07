@@ -8,7 +8,7 @@ import {
   FormTextarea,
   FormSelect,
   FormError,
-} from '@/app/components/ui/Form';
+} from '@/app/components/compound/Form/Form';
 import { ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/schema';
 import { useActionState } from 'react';
 import { ActionResponse } from '@/app/actions/auth';
@@ -16,7 +16,7 @@ import { createIssue } from '@/app/actions/issues';
 import Link from 'next/link';
 import { ArrowLeftIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import Button from '@/app/components/ui/Button';
+import Button from '@/app/components/basic/Button';
 
 const initialState: ActionResponse = {
   success: false,
@@ -49,7 +49,7 @@ export default function NewIssuePage({ userId }: { userId: string }) {
 
       try {
         const result = await createIssue(data);
-        console.log('------- result-> ', result);
+        //console.log('------- result-> ', result);
         if (result.success) {
           router.refresh();
           router.push('/issues');

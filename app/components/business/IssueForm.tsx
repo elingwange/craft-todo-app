@@ -3,7 +3,7 @@
 import { useActionState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Issue, ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/schema';
-import Button from './ui/Button';
+import Button from './basic/Button';
 import {
   Form,
   FormGroup,
@@ -12,7 +12,7 @@ import {
   FormTextarea,
   FormSelect,
   FormError,
-} from './ui/Form';
+} from './compound/Form';
 import { createIssue, updateIssue } from '@/app/actions/issues';
 import { ActionResponse } from '../actions/auth';
 

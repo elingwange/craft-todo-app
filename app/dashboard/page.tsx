@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { HomeIcon, ListChecks, PlusIcon, UserIcon } from 'lucide-react';
-import SignOutButton from '../components/LoginOutButton';
+import SignOutButton from '../components/business/LoginOutButton';
 import { getCurrentUser } from '@/lib/dal';
-import IssuesOverview from '../components/IssuesOverview';
+import IssuesOverview from '../components/business/IssuesOverview';
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();

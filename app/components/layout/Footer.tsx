@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Timestamp from './Timestamp';
+import Timestamp from '../basic/Timestamp';
 
 function FootLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (

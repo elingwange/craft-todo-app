@@ -1,5 +1,5 @@
 import { getCurrentUser } from '@/lib/dal';
-import Button from './ui/Button';
+import Button from '../basic/Button';
 import Link from 'next/link';
 import { mockDelay } from '@/lib/utils';
 
