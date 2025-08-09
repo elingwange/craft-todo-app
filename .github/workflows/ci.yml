@@ -1,4 +1,5 @@
 name: CI
+
 # 触发工作流的事件
 on:
   push:
@@ -15,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 步骤2: 设置 Node.js 环境
+      # 步骤2: 设置 Node.js 环境，并启用依赖缓存
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -23,11 +24,13 @@ jobs:
           cache: 'npm'
 
       # 步骤3: 安装依赖
+      # 使用 `npm ci` 而不是 `npm install`，可以获得更可靠和更快的安装速度
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      # 步骤4: 运行 Jest 测试
-      - name: Run tests with Jest
+      # 步骤4: 运行测试
+      # `npm ci` 会自动处理 `jest --watchAll` 的问题
+      - name: Run tests
         run: npm test
 
       # 步骤5 (可选): 运行 Next.js 构建，检查是否存在构建错误
