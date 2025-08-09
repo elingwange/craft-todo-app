@@ -14,6 +14,10 @@ const customJestConfig = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
   },
+  transformIgnorePatterns: [
+    // 默认忽略 node_modules，但这里我们指定要包含一些模块
+    '/node_modules/(?!(lucide-react|nanoid)/)',
+  ],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

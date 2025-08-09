@@ -183,4 +183,20 @@ describe('IssueList', () => {
       expect(links[1]).toHaveAttribute('href', `/issues/${mockIssues[1].id}`);
     });
   });
+
+  it('should render a list of issues and correctly pass props to the Badge component', async () => {
+    render(<IssueList />);
+
+    await waitFor(() => {
+      expect(screen.getByText(mockIssues[0].title)).toBeInTheDocument();
+
+      const statusBadgeHigh = screen.getByText(ISSUE_STATUS[mockIssues[0].status as Status].label);
+      const priorityBadgeMedium = screen.getByText(
+        ISSUE_PRIORITY[mockIssues[1].priority as Priority].label
+      );
+
+      expect(statusBadgeHigh).toBeInTheDocument();
+      expect(priorityBadgeMedium).toBeInTheDocument();
+    });
+  });
 });
