@@ -1,0 +1,35 @@
+name: CI
+# 触发工作流的事件
+on:
+  push:
+    branches: ['main', 'dev']
+  pull_request:
+    branches: ['main', 'dev']
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步骤1: 检出仓库代码
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 步骤2: 设置 Node.js 环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      # 步骤3: 安装依赖
+      - name: Install dependencies
+        run: npm install
+
+      # 步骤4: 运行 Jest 测试
+      - name: Run tests with Jest
+        run: npm test
+
+      # 步骤5 (可选): 运行 Next.js 构建，检查是否存在构建错误
+      - name: Run Next.js build
+        run: npm run build
