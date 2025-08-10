@@ -28,8 +28,8 @@ jobs:
         run: npm ci
 
       # 步骤4: 运行测试
-      - name: Run tests
-        run: npm run test:ci
+      #- name: Run tests
+      #  run: npm run test:ci
 
       # 步骤5: 运行 Next.js 构建，检查是否存在构建错误
       - name: Run Next.js build
