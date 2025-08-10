@@ -1,13 +1,36 @@
-# .github/workflows/ci.yml
+name: CI
+
+# 触发工作流的事件
+on:
+  push:
+    branches: ['main', 'dev']
+  pull_request:
+    branches: ['main', 'dev']
+
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
 
     steps:
-      # ... 其他步骤
+      # 步骤1: 检出仓库代码
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 步骤2: 设置 Node.js 环境，并启用依赖缓存
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      # 步骤3: 安装依赖
+      - name: Install dependencies
+        run: npm ci
 
       # 步骤4: 运行测试
-      # 使用 `test:ci` 脚本，它会运行一次测试并退出
       - name: Run tests
         run: npm run test:ci
-      # ... 其他步骤
+
+      # 步骤5: 运行 Next.js 构建，检查是否存在构建错误
+      - name: Run Next.js build
+        run: npm run build
