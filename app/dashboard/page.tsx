@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import Link from 'next/link';
 import { HomeIcon, ListChecks, PlusIcon, UserIcon } from 'lucide-react';
 import SignOutButton from '../components/business/LoginOutButton';
