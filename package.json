@@ -29,6 +29,8 @@
     "zod": "^3.25.67"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
     "@eslint/eslintrc": "^3",
     "@swc/jest": "^0.2.39",
     "@tailwindcss/postcss": "^4",
@@ -41,6 +43,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
+    "babel-jest": "^29.7.0",
     "drizzle-kit": "^0.30.6",
     "drizzle-orm": "^0.39.3",
     "eslint": "^9",
@@ -49,6 +52,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^26.0.0",
     "postcss": "^8.5.4",
-    "typescript": "^5"
+    "ts-jest": "^29.4.1",
+    "typescript": "^5.9.2"
   }
 }
